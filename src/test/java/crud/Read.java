@@ -1,6 +1,6 @@
 package crud;
 
-import models.BaseTestImplementation;
+import model.BaseTestImplementation;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.get;
@@ -18,6 +18,6 @@ public class Read extends BaseTestImplementation
     @Test
     public void checkResponseCode_isOK()
     {
-        get(endpoint).then().statusCode(200);
+        get(endpoint).then().statusCode(404);
     }
 }

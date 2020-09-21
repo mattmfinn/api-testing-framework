@@ -1,0 +1,13 @@
+{
+  "baseURI": "http://localhost:8080/app/",
+  "endpoints":
+  [
+    [
+      "videogames",
+      "create",
+      "read",
+      "update",
+      "delete"
+    ]
+  ]
+}
