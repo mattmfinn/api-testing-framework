@@ -2,6 +2,7 @@ package smoke;
 
 import model.SmokeTest;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
@@ -26,6 +27,7 @@ public class Uptime extends SmokeTest
     public void Get_GivenEndpointIsUp_WhenRequestAll_ThenStatusCodeIs200(String endpoint)
     {
         response = get(endpoint).then().assertThat().statusCode(200);
+        recordResponseBody();
     }
 
     @Test(dependsOnMethods = "Get_GivenEndpointIsUp_WhenRequestAll_ThenStatusCodeIs200")
@@ -38,6 +40,7 @@ public class Uptime extends SmokeTest
     public void Post_GivenEndpointIsUp_WhenPostNewEntry_ThenStatusCodeIs200(String endpoint)
     {
         response = createRequest.post(endpoint).then().assertThat().statusCode(200);
+        recordResponseBody();
     }
 
     @Test(dependsOnMethods = "Post_GivenEndpointIsUp_WhenPostNewEntry_ThenStatusCodeIs200")
@@ -46,10 +49,12 @@ public class Uptime extends SmokeTest
         Assert.assertTrue(isBodyGreaterEqualToMinimumLength());
     }
 
-    @Test(priority = 1, dataProvider = "defaultDataProvider")
+    @Test(dependsOnMethods = "Post_GivenEndpointIsUp_WhenPostNewEntry_ThenStatusCodeIs200",
+            dataProvider = "defaultDataProvider")
     public void Get_GivenEndpointIsUp_WhenRequestSingleEntry_ThenStatusCodeIs200(String endpoint)
     {
         response = get(endpoint + uniqueIdentifier).then().assertThat().statusCode(200);
+        recordResponseBody();
     }
 
     @Test(dependsOnMethods = "Get_GivenEndpointIsUp_WhenRequestSingleEntry_ThenStatusCodeIs200")
@@ -58,10 +63,12 @@ public class Uptime extends SmokeTest
         Assert.assertTrue(isBodyGreaterEqualToMinimumLength());
     }
 
-    @Test(priority = 2, dataProvider = "defaultDataProvider")
+    @Test(dependsOnMethods = "Post_GivenEndpointIsUp_WhenPostNewEntry_ThenStatusCodeIs200",
+            dataProvider = "defaultDataProvider")
     public void Put_GivenEndpointIsUp_WhenUpdateEntry_ThenStatusCodeIs200(String endpoint)
     {
         response = updateRequest.put(endpoint + uniqueIdentifier).then().assertThat().statusCode(200);
+        recordResponseBody();
     }
 
     @Test(dependsOnMethods = "Put_GivenEndpointIsUp_WhenUpdateEntry_ThenStatusCodeIs200")
@@ -70,10 +77,12 @@ public class Uptime extends SmokeTest
         Assert.assertTrue(isBodyGreaterEqualToMinimumLength());
     }
 
-    @Test(priority = 3, dataProvider = "defaultDataProvider")
+    @Test(dependsOnMethods = "Put_GivenEndpointIsUp_WhenUpdateEntry_ThenStatusCodeIs200",
+            dataProvider = "defaultDataProvider")
     public void Delete_GivenEndpointIsUp_WhenDeleteEntry_ThenStatusCodeIs200(String endpoint)
     {
         response = deleteRequest.delete(endpoint + uniqueIdentifier).then().assertThat().statusCode(200);
+        recordResponseBody();
     }
 
     @Test(dependsOnMethods = "Delete_GivenEndpointIsUp_WhenDeleteEntry_ThenStatusCodeIs200")

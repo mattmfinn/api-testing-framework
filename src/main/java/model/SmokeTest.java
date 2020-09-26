@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import model.json.Endpoints;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.DataProvider;
 
 import java.io.IOException;
@@ -68,14 +69,13 @@ public class SmokeTest implements BaseTest
      * Record the response body in the test report
      */
     @Override
-    @AfterMethod
-    public void tearDown()
+    public void recordResponseBody()
     {
         Reporter.log(response.extract().response().body().prettyPrint());
     }
 
     protected boolean isBodyGreaterEqualToMinimumLength()
     {
-        return response.extract().response().body().print().length() >= responseMinLength;
+        return response.extract().response().body().toString().length() >= responseMinLength;
     }
 }
