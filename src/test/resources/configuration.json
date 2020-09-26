@@ -1,0 +1,12 @@
+{
+  "baseURI": "http://localhost:8080/app/",
+  "endpoints":
+  [
+    [
+      "videogames"
+    ]
+  ],
+  "uniqueIdentifier": "/1717",
+  "createRequestBody": "{\n  \"id\": 1717,\n  \"name\": \"create\",\n  \"releaseDate\": \"2020-09-26T04:42:30.423Z\",\n  \"reviewScore\": 0,\n  \"category\": \"create\",\n  \"rating\": \"create\"\n}",
+  "updateRequestBody": "{\n  \"id\": 1717,\n  \"name\": \"update\",\n  \"releaseDate\": \"2020-09-26T04:42:30.423Z\",\n  \"reviewScore\": 0,\n  \"category\": \"update\",\n  \"rating\": \"update\"\n}"
+}
